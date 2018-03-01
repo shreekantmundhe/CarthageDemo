@@ -1,0 +1,34 @@
+language: objective-c
+osx_image: xcode8.1
+xcode_project: Demo
+xcode_scheme: Demo
+xcode_sdk: iphonesimulator9.3
+env: 
+global:
+- FRAMEWORK_NAME=Demo
+before_install:
+- brew update
+- brew outdated carthage || brew upgrade carthage
+before_script:
+- carthage bootstrap
+before_deploy:
+- carthage build --no-skip-current
+- carthage archive $Demo
+- git config --local user.name "shrikantmundhe"
+- git config --local user.email "shrikant.mundhe@derivco.co.uk"
+- git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+deploy:
+  provider: releases
+  api_key:
+    secure: lgM/aBVcfa+Kozd85euvKx4y2ZUshB6hW3WqkFmzEv193tm7PBIIqkcXyiKD5jMwPyTRUmaoYrgy4QHgBa2V8qSWVztciyvc6vHRNWt/paWVifkld3xj5WpuwxlaCZZ7VVpowgACfZ/lSEmoyNssibQMSK/BrKEYgib6xTVPeBPV+hU6/IsVZPzgwHY/c1suXFozgbn4hMVP8ldjLeM4euu7fBfXS3Dfi4sBAY7/mvWnlxfQz3E7+5zIKEWRSu71mKzkSD7yo1bQJDdO0hL8nM4BoN2ano3mTnua8A2rs8mX/SJ7MtXWlGpi1Rm08Al+64wbtbEmMsYZDWQ6qJrsBFOi1BVhEHnTVdzHOtVoSlVh7ttfE9vD45IMGk0jE10d1poO69UNZa7XOXH2p/85yBTXO1zLwP/5LJ5t/CLmoj2FSiQlzsRbfoG7J9lzraUH6PU0hiEgDeTn5LMvo3hXwynhMucoKS8xg5K9nbuBbYDPVTS1A/OlN53EF3yvFWXmui16qAnfwkKje9wNZ1WQ16754qTwRRufI8c452kCU4jRg8W9QNDlpqY+dRZrfuQBpY5sywphj2K6SmIn3J3pUKTeR6FYNMS9oQpt+JteMxIQy49D8eaxMS/h3Xn64Mjo+GfgqDPU4XT45qiIozTN8abh8oDAPO12jlCN3DYiiy8=
+  file: Demo.framework.zip
+  on:
+    repo: shrikantmundhe/CarthageDemo
+provider: releases
+api_key: GITHUB OAUTH TOKEN
+file: FILE TO UPLOAD
+skip_cleanup: true
+tags: true
+on:
+repo: repo/repo
+tags: true
