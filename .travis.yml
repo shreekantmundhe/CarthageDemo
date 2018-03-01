@@ -1,4 +1,4 @@
-language: objective-c
+language: swift
 osx_image: xcode8.1
 xcode_project: Demo
 xcode_scheme: Demo
@@ -23,10 +23,7 @@ deploy:
   on:
     repo: shrikantmundhe/CarthageDemo
 provider: releases
-api_key: GITHUB OAUTH TOKEN
-file: FILE TO UPLOAD
 skip_cleanup: true
-tags: true
 on:
 repo: repo/repo
 tags: true
